@@ -15,11 +15,14 @@ public class ChickMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 
 		if (inRadius|| chickFollowNow){
 			Vector3 targetDirection = target.position - transform.position;
@@ -58,6 +61,21 @@ public class ChickMovement : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Player")) {
 			inRadius = false;
 			chickFollowNow = true;
+			StartCoroutine (Rest ());
+			StartCoroutine (Go ());
 		}
+	}
+
+	public IEnumerator Rest(){
+
+		Debug.Log ("Resting...");
+		yield return new WaitForSeconds (Random.Range (4f, 5f));
+		chickFollowNow = false;
+	}
+
+	public IEnumerator Go(){
+
+		yield return new WaitForSeconds (Random.Range (1f, 2f));
+		chickFollowNow = true;
 	}
 }
